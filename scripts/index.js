@@ -1,4 +1,4 @@
-const dataUia = ['player-skip-intro', 'next-episode-seamless-button', 'player-skip-recap']
+const SKIP_SELECTORS = ['player-skip-intro', 'next-episode-seamless-button', 'player-skip-recap']
 
 const settingObject = {
   introSkip: false,
@@ -25,7 +25,7 @@ const skipHandler = () => {
 
     const attribute = button.getAttribute('data-uia')
 
-    if(dataUia.includes(attribute)) {
+    if(SKIP_SELECTORS.includes(attribute)) {
       if(attribute === 'player-skip-intro' && settingObject.introSkip) button.click()
       if(attribute === 'next-episode-seamless-button' && settingObject.outroSkip) button.click()
       if(attribute === 'player-skip-recap' && settingObject.recapSkip) button.click()
