@@ -1,103 +1,228 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    .toggle-container {
-      width: 200px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      padding: 15px;
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    :root {
+      --bg: #f4f6ff;           /* soft bluish background */
+      --card: #ffffff;         /* card surface */
+      --shadow-light: rgba(255, 255, 255, 0.9);
+      --shadow-dark: rgba(41, 50, 107, 0.15);
+      --text: #2b2d42;
+      --muted: #6b6f86;
+      --primary: #6c63ff;      /* purple accent */
+      --primary-2: #8a7bff;    /* lighter purple */
+      --success: #7bd88f;
+      --switch-off: #e7e9f7;
+      --radius-xl: 16px;
+      --radius-lg: 14px;
+      --radius-md: 12px;
     }
 
-    .toggle-item {
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+    }
+
+    /* Popup size should stay compact, similar to a small neumorphic dashboard card */
+    .popup {
+      width: 300px;
+      padding: 16px;
+      background: linear-gradient(180deg, #fff 0%, #fbfcff 100%);
+      border-radius: var(--radius-xl);
+      box-shadow:
+        10px 10px 24px var(--shadow-dark),
+        -8px -8px 18px var(--shadow-light);
+    }
+
+    .header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      width: 100%;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      background: radial-gradient(120% 120% at 20% 20%, var(--primary) 0%, var(--primary-2) 70%, #b7afff 100%);
+      box-shadow: 0 6px 14px rgba(108, 99, 255, 0.35);
+    }
+
+    .title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .chip {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f0efff;
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 700;
+      box-shadow: inset 0 0 0 1px rgba(108, 99, 255, 0.15);
+    }
+
+    .group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .card-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px;
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      box-shadow:
+        6px 6px 16px var(--shadow-dark),
+        -6px -6px 16px var(--shadow-light);
+    }
+
+    .label-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .label-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #edefff 0%, #ffffff 60%);
+      box-shadow: inset 2px 2px 6px rgba(41, 50, 107, 0.06), inset -2px -2px 6px rgba(255, 255, 255, 0.9);
+      position: relative;
+    }
+
+    /* tiny decorative tick inside icon */
+    .label-icon::after {
+      content: '';
+      position: absolute;
+      left: 8px; top: 6px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: radial-gradient(100% 100% at 30% 30%, var(--primary) 0%, var(--primary-2) 70%);
+      opacity: .7;
     }
 
     .toggle-label {
-      font-size: 16px;
-      font-weight: 500;
-      color: #333;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
     }
 
-    .toggle-switch {
-      position: relative;
-      display: inline-block;
-      width: 51px;
-      height: 31px;
-    }
-
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+    /* Switch */
+    .toggle-switch { position: relative; width: 56px; height: 32px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
 
     .slider {
-      position: absolute;
+      position: absolute; inset: 0;
+      border-radius: 999px;
+      background: var(--switch-off);
+      box-shadow: inset 6px 6px 14px rgba(41, 50, 107, 0.12), inset -6px -6px 12px rgba(255, 255, 255, 0.9);
       cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #e4e4e4;
-      transition: .4s;
-      border-radius: 34px;
+      transition: background .35s ease, box-shadow .35s ease;
     }
 
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 27px;
-      width: 27px;
-      left: 2px;
-      bottom: 2px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    .slider::before {
+      content: '';
+      position: absolute; bottom: 3px; left: 3px;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: linear-gradient(180deg, #ffffff 0%, #f5f6ff 100%);
+      box-shadow:
+        2px 2px 6px rgba(41, 50, 107, 0.20),
+        -2px -2px 6px rgba(255, 255, 255, 0.95);
+      transition: transform .35s ease, background .35s ease, box-shadow .35s ease;
     }
 
-    input:checked + .slider {
-      background-color: #34c759;
+    .toggle-switch input:checked + .slider {
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-2) 100%);
+      box-shadow: 0 6px 14px rgba(108, 99, 255, 0.35), inset 0 0 0 1px rgba(255,255,255,.2);
     }
 
-    input:checked + .slider:before {
-      transform: translateX(20px);
+    .toggle-switch input:checked + .slider::before {
+      transform: translateX(24px);
+      background: #ffffff;
+      box-shadow: 0 6px 12px rgba(108, 99, 255, 0.35), -2px -2px 6px rgba(255, 255, 255, 0.9);
+    }
+
+    /* Hover & focus states */
+    .toggle-switch:hover .slider { filter: brightness(1.02); }
+    .toggle-switch input:focus + .slider { outline: 3px solid rgba(108, 99, 255, 0.25); }
+
+    /* Footer note */
+    .footer {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
     }
   </style>
 </head>
 <body>
-<div class="toggle-container">
-  <div class="toggle-item">
-    <span class="toggle-label">Intro Skip</span>
-    <label class="toggle-switch">
-      <input type="checkbox" id="intro-skip" />
-      <span class="slider"></span>
-    </label>
-  </div>
-  <div class="toggle-item">
-    <span class="toggle-label">Outro Skip</span>
-    <label class="toggle-switch">
-      <input type="checkbox" id="outro-skip" />
-      <span class="slider"></span>
-    </label>
-  </div>
-  <div class="toggle-item">
-    <span class="toggle-label">Recap Skip</span>
-    <label class="toggle-switch">
-      <input type="checkbox" id="recap-skip" />
-      <span class="slider"></span>
-    </label>
-  </div>
-</div>
+  <div class="popup">
+    <div class="header">
+      <div class="brand">
+        <div class="logo-dot" aria-hidden="true"></div>
+        <div class="title">Endless Netflix</div>
+      </div>
+    </div>
 
-<script src="popup.js"></script>
+    <div class="group">
+      <div class="card-row">
+        <div class="label-box">
+          <div class="label-icon" aria-hidden="true"></div>
+          <span class="toggle-label">Intro Skip</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="intro-skip" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="card-row">
+        <div class="label-box">
+          <div class="label-icon" aria-hidden="true"></div>
+          <span class="toggle-label">Outro Skip</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="outro-skip" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="card-row">
+        <div class="label-box">
+          <div class="label-icon" aria-hidden="true"></div>
+          <span class="toggle-label">Recap Skip</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="recap-skip" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+<!--    <div class="footer">Made with 💜 for a seamless binge</div>-->
+  </div>
+
+  <script src="popup.js"></script>
 </body>
 </html>
