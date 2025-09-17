@@ -4,7 +4,7 @@ const recapSkipCheck = document.getElementById('recap-skip')
 
 introSkipCheck.addEventListener('change', function() {
   chrome.storage.local.set({ introSkip: this.checked })
-});
+})
 
 outroSkipCheck.addEventListener('change', function() {
   chrome.storage.local.set({ outroSkip: this.checked })
@@ -20,4 +20,4 @@ chrome.storage.local.get(['introSkip', 'outroSkip', 'recapSkip'],
     if (outroSkip) outroSkipCheck.checked = true;
     if (recapSkip) recapSkipCheck.checked = true;
   }
-);
+)
