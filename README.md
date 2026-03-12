@@ -45,7 +45,7 @@ endless-netflix/
 이 프로젝트의 소스 코드는 참고 목적으로만 공개되어 있습니다.
 무단 복제, 수정, 재배포 및 2차 저작물 제작을 금지합니다.
 
-© 2025 <RitaMordio>. All rights reserved.
+© 2025 \<RitaMordio\>. All rights reserved.
 
 ---
 
@@ -96,4 +96,4 @@ endless-netflix/
 This source code is made public for reference purposes only.
 Unauthorized copying, modification, redistribution, or creation of derivative works is strictly prohibited.
 
-© 2025 <RitaMordio>. All rights reserved.
+© 2025 \<RitaMordio\>. All rights reserved.
