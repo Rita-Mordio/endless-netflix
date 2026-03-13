@@ -8,6 +8,11 @@ const LABEL_NAME = {
     intro: '인트로 건너뛰기',
     outro: '아웃트로 건너뛰기',
     recap: '줄거리 건너뛰기',
+  },
+  ja: {
+    intro: 'イントロスキップ',
+    outro: 'アウトロスキップ',
+    recap: 'あらすじスキップ',
   }
 }
 
@@ -16,6 +21,7 @@ const languageSettings = () => {
   const menu = document.getElementById('lang-menu')
   const enRadio = document.getElementById('lang-en')
   const koRadio = document.getElementById('lang-ko')
+  const jaRadio = document.getElementById('lang-ja')
 
   const updateToggleLabels = (lang) => {
     const t = LABEL_NAME[lang] || LABEL_NAME.en
@@ -52,11 +58,13 @@ const languageSettings = () => {
 
   enRadio?.addEventListener('change', function(){ if (this.checked) setLanguage('en') })
   koRadio?.addEventListener('change', function(){ if (this.checked) setLanguage('ko') })
+  jaRadio?.addEventListener('change', function(){ if (this.checked) setLanguage('ja') })
 
   chrome.storage.local.get(['language'], ({ language }) => {
     const lang = language || 'en'
     if (!language) chrome.storage.local.set({ language: 'en' })
     if (lang === 'ko') koRadio && (koRadio.checked = true)
+    else if (lang === 'ja') jaRadio && (jaRadio.checked = true)
     else enRadio && (enRadio.checked = true)
     updateToggleLabels(lang)
   })
