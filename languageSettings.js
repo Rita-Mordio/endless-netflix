@@ -3,16 +3,19 @@ const LABEL_NAME = {
     intro: 'Intro Skip',
     outro: 'Outro Skip',
     recap: 'Recap Skip',
+    coffee: 'Buy me a coffee',
   },
   ko: {
     intro: '인트로 건너뛰기',
     outro: '아웃트로 건너뛰기',
     recap: '줄거리 건너뛰기',
+    coffee: '개발자에게 카페인 수혈하기',
   },
   ja: {
     intro: 'イントロスキップ',
     outro: 'アウトロスキップ',
     recap: 'あらすじスキップ',
+    coffee: '開発者にコーヒーを差し入れ',
   }
 }
 
@@ -33,6 +36,9 @@ const languageSettings = () => {
     introRow?.querySelector('.toggle-label')?.replaceChildren(document.createTextNode(t.intro))
     outroRow?.querySelector('.toggle-label')?.replaceChildren(document.createTextNode(t.outro))
     recapRow?.querySelector('.toggle-label')?.replaceChildren(document.createTextNode(t.recap))
+
+    const coffeeText = document.getElementById('coffee-text')
+    if (coffeeText) coffeeText.textContent = t.coffee
   }
 
   if (button && menu) {
