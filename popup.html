@@ -254,6 +254,17 @@
       height: 80px;
       border-radius: var(--radius-md);
     }
+    .qr-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .qr-image {
+      display: block;
+      width: 225px;
+      height: auto;
+      border-radius: var(--radius-md);
+    }
     /* Settings button */
     .popup { position: relative; }
     .settings-button {
@@ -369,15 +380,18 @@
     </div>
     <div class="donate-modal" id="donate-modal">
       <div class="modal-overlay" id="modal-overlay"></div>
-      <div class="modal-box">
+      <div class="modal-box" id="modal-box">
         <button class="modal-close" id="modal-close">×</button>
-        <div class="donate-options">
+        <div class="donate-options" id="donate-options">
           <a href="https://ko-fi.com/ritamordio" target="_blank" class="donate-option">
             <img src="images/kofi-icon.png" alt="Ko-fi">
           </a>
-          <a href="https://qr.kakaopay.com/your-kakao-link" target="_blank" class="donate-option">
+          <button class="donate-option" id="kakao-option">
             <img src="images/kakao-icon.png" alt="Kakao">
-          </a>
+          </button>
+        </div>
+        <div class="qr-content" id="qr-content" style="display:none;">
+          <img src="images/kakao-qr.png" alt="KakaoTalk QR Code" class="qr-image">
         </div>
       </div>
     </div>
