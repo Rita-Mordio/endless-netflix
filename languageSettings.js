@@ -16,6 +16,24 @@ const LABEL_NAME = {
     outro: 'アウトロスキップ',
     recap: 'あらすじスキップ',
     coffee: '開発者にコーヒーを差し入れ',
+  },
+  de: {
+    intro: 'Intro überspringen',
+    outro: 'Outro überspringen',
+    recap: 'Zusammenfassung überspringen',
+    coffee: 'Spendiere mir einen Kaffee',
+  },
+  es: {
+    intro: 'Saltar intro',
+    outro: 'Saltar outro',
+    recap: 'Saltar resumen',
+    coffee: 'Invítame un café',
+  },
+  fr: {
+    intro: 'Passer l\'intro',
+    outro: 'Passer l\'outro',
+    recap: 'Passer le résumé',
+    coffee: 'Offrez-moi un café',
   }
 }
 
@@ -25,6 +43,9 @@ const languageSettings = () => {
   const enRadio = document.getElementById('lang-en')
   const koRadio = document.getElementById('lang-ko')
   const jaRadio = document.getElementById('lang-ja')
+  const deRadio = document.getElementById('lang-de')
+  const esRadio = document.getElementById('lang-es')
+  const frRadio = document.getElementById('lang-fr')
 
   const updateToggleLabels = (lang) => {
     const t = LABEL_NAME[lang] || LABEL_NAME.en
@@ -65,12 +86,18 @@ const languageSettings = () => {
   enRadio?.addEventListener('change', function(){ if (this.checked) setLanguage('en') })
   koRadio?.addEventListener('change', function(){ if (this.checked) setLanguage('ko') })
   jaRadio?.addEventListener('change', function(){ if (this.checked) setLanguage('ja') })
+  deRadio?.addEventListener('change', function(){ if (this.checked) setLanguage('de') })
+  esRadio?.addEventListener('change', function(){ if (this.checked) setLanguage('es') })
+  frRadio?.addEventListener('change', function(){ if (this.checked) setLanguage('fr') })
 
   chrome.storage.local.get(['language'], ({ language }) => {
     const lang = language || 'en'
     if (!language) chrome.storage.local.set({ language: 'en' })
     if (lang === 'ko') koRadio && (koRadio.checked = true)
     else if (lang === 'ja') jaRadio && (jaRadio.checked = true)
+    else if (lang === 'de') deRadio && (deRadio.checked = true)
+    else if (lang === 'es') esRadio && (esRadio.checked = true)
+    else if (lang === 'fr') frRadio && (frRadio.checked = true)
     else enRadio && (enRadio.checked = true)
     updateToggleLabels(lang)
   })
