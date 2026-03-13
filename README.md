@@ -8,7 +8,7 @@
 - 다음 에피소드 자동 재생
 - 줄거리 요약 자동 건너뛰기
 - 각 기능 개별 ON/OFF 설정
-- 한국어 / 영어 UI 지원
+- 다국어 UI 지원 (한국어, 영어, 일본어, 독일어, 스페인어, 프랑스어)
 
 ## 설치 방법
 
@@ -59,7 +59,7 @@ A Chrome extension that automatically skips intros, outros, and recaps while wat
 - Auto play next episode
 - Auto skip recap
 - Toggle each feature individually
-- Korean / English UI support
+- Multi-language UI support (Korean, English, Japanese, German, Spanish, French)
 
 ## Installation
 
