@@ -21,3 +21,15 @@ chrome.storage.local.get(['introSkip', 'outroSkip', 'recapSkip'],
     if (recapSkip) recapSkipCheck.checked = true;
   }
 )
+
+document.getElementById('coffee-btn').addEventListener('click', function() {
+  document.getElementById('donate-modal').classList.add('show')
+})
+
+document.getElementById('modal-close').addEventListener('click', function() {
+  document.getElementById('donate-modal').classList.remove('show')
+})
+
+document.getElementById('modal-overlay').addEventListener('click', function() {
+  document.getElementById('donate-modal').classList.remove('show')
+})

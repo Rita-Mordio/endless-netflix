@@ -179,12 +179,80 @@
       gap: 6px;
     }
     .coffee-link {
+      background: none;
+      border: none;
       color: var(--primary);
-      text-decoration: none;
+      cursor: pointer;
+      padding: 0;
+      font-size: 11px;
+      font-family: inherit;
       transition: opacity .2s ease;
     }
     .coffee-link:hover {
       opacity: 0.7;
+    }
+    .donate-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .donate-modal.show {
+      display: flex;
+    }
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .modal-box {
+      position: relative;
+      background: var(--card);
+      padding: 28px 32px;
+      border-radius: var(--radius-lg);
+      box-shadow: 10px 10px 24px var(--shadow-dark);
+      z-index: 1;
+    }
+    .modal-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--muted);
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    .modal-close:hover {
+      background: #f4f6ff;
+    }
+    .donate-options {
+      display: flex;
+      gap: 16px;
+    }
+    .donate-option {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: transform .2s ease;
+    }
+    .donate-option:hover {
+      transform: scale(1.05);
+    }
+    .donate-option img {
+      display: block;
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-md);
     }
     /* Settings button */
     .popup { position: relative; }
@@ -295,9 +363,23 @@
 
     <div class="footer">
       Created by Rita-Mordio | 
-      <a href="https://ko-fi.com/ritamordio" target="_blank" class="coffee-link">
+      <button class="coffee-link" id="coffee-btn">
         <span id="coffee-text">Buy me a coffee</span> ☕
-      </a>
+      </button>
+    </div>
+    <div class="donate-modal" id="donate-modal">
+      <div class="modal-overlay" id="modal-overlay"></div>
+      <div class="modal-box">
+        <button class="modal-close" id="modal-close">×</button>
+        <div class="donate-options">
+          <a href="https://ko-fi.com/ritamordio" target="_blank" class="donate-option">
+            <img src="images/kofi-icon.png" alt="Ko-fi">
+          </a>
+          <a href="https://qr.kakaopay.com/your-kakao-link" target="_blank" class="donate-option">
+            <img src="images/kakao-icon.png" alt="Kakao">
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
